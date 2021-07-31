@@ -25,9 +25,9 @@ const verifyToken = (req, res, next) => {
   }
   try {
     const decoded = jwt.verify(token, "SecretTokenKey");
-    req.userId = decoded.userId;
-    req.email = decoded.email;
-    req.name = decoded.name;
+
+    const { userId, email, name } = decoded;
+    req.body = { ...req.body, userId, email, name };
   } catch (err) {
     next(err);
   }
